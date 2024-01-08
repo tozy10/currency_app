@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: Currency-web
+    env: ruby
+    plan: free
+    numInstances: 1
+    buildCommand: ./bin/render-build.sh
+    startCommand: bundle exec puma -C config/deploy/puma.rb
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: Currency-web
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+
+databases:
+  - name: Currency-web
+    plan: free
+    postgresMajorVersion: 14

@@ -10,36 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_08_202306) do
-  create_table "administrator", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.datetime "remember_created_at"
-    t.integer "failed_attempts", default: 0, null: false
-    t.string "unlock_token"
-    t.datetime "locked_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_administrator_on_email", unique: true
-    t.index ["unlock_token"], name: "index_administrator_on_unlock_token", unique: true
-  end
-
-  create_table "admins", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.datetime "remember_created_at"
-    t.integer "failed_attempts", default: 0, null: false
-    t.string "unlock_token"
-    t.datetime "locked_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_admins_on_email", unique: true
-    t.index ["unlock_token"], name: "index_admins_on_unlock_token", unique: true
-  end
+ActiveRecord::Schema[7.0].define(version: 2024_01_08_081701) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "budgets", force: :cascade do |t|
     t.string "title"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_budgets_on_user_id"
@@ -47,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_202306) do
 
   create_table "currencies", force: :cascade do |t|
     t.integer "amount"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_currencies_on_user_id"
@@ -56,7 +33,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_202306) do
   create_table "items", force: :cascade do |t|
     t.string "title"
     t.integer "amount"
-    t.integer "budget_id", null: false
+    t.bigint "budget_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["budget_id"], name: "index_items_on_budget_id"
@@ -64,8 +41,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_08_202306) do
 
   create_table "transfers", force: :cascade do |t|
     t.integer "amount"
-    t.integer "receiver_id"
-    t.integer "sender_id"
+    t.bigint "receiver_id"
+    t.bigint "sender_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["receiver_id"], name: "index_transfers_on_receiver_id"
