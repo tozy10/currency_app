@@ -5,8 +5,11 @@ class DashboardController < ApplicationController
   end
 
   def history
-    @money_sent = Transfer.where(sender: current_user)
-    @money_received = Transfer.where(receiver: current_user)
-    @currencies = current_user.currencies
+    @money_sent = Transfer.where(sender: current_user).order(created_at: :desc)
+    @money_received = Transfer.where(receiver: current_user).order(created_at: :desc)
+    @currencies = current_user.currencies.order(created_at: :desc)
+  end
+
+  def budgets
   end
 end

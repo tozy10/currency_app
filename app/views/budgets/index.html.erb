@@ -1,0 +1,43 @@
+<h1 class="text-center md:text-start">
+  <%= link_to 'Budget menu', budget_menu_path,
+    class: 'px-3 py-2 border border-indigo-500 rounded-full 
+      hover:text-white hover:bg-indigo-400 hover:border-indigo-400
+      font-semibold text-indigo-500
+    '
+  %>
+  <%= link_to 'Main menu', dashboard_path,
+    class: 'px-3 py-2 border border-indigo-500 rounded-full 
+      hover:text-white hover:bg-indigo-400 hover:border-indigo-400
+      font-semibold text-indigo-500
+    '
+  %>
+</h1>
+<section>
+  <h1 class="text-center text-2xl my-4">Budgets</h1>
+
+  <table class="table-auto border-collapse border border-slate-400 w-full lg:w-3/5 mx-2 lg:mx-auto">
+  <thead>
+      <tr>
+        <th class="border border-slate-300">Id</th>
+        <th class="border border-slate-300">Title</th>
+        <th class="border border-slate-300">Created at</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <% @budgets.each do |budget| %>
+        <tr class="text-center">
+          <td class="border border-slate-300"><%= budget.id %></td>
+          <td class="border border-slate-300"><%= budget.title %></td>
+          <td class="border border-slate-300"><%= budget.created_at.strftime('%d %B %Y') %></td>
+          <td class="border border-slate-300 text-center py-1 px-0">
+            <%= link_to 'View', budget_path(budget), class: 'px-2 py-1 font-bold text-white bg-orange-500 rounded hover:bg-orange-600' %>
+            <%= link_to 'Edit', edit_budget_path(budget), class: 'px-2 py-1 font-bold text-white bg-blue-500 rounded hover:bg-blue-600' %>
+          </td>
+        </tr>
+        <% end %>
+      
+    </tbody>
+  </table>
+</section>

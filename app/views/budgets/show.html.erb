@@ -1,4 +1,48 @@
-<div>
-  <h1 class="font-bold text-4xl">Budgets#show</h1>
-  <p>Find me in app/views/budgets/show.html.erb</p>
-</div>
+<h1 class="text-center md:text-start">
+  <%= link_to 'Budget menu', budget_menu_path,
+    class: 'px-3 py-2 border border-indigo-500 rounded-full 
+      hover:text-white hover:bg-indigo-400 hover:border-indigo-400
+      font-semibold text-indigo-500
+    '
+  %>
+  <%= link_to 'Main menu', dashboard_path,
+    class: 'px-3 py-2 border border-indigo-500 rounded-full 
+      hover:text-white hover:bg-indigo-400 hover:border-indigo-400
+      font-semibold text-indigo-500
+    '
+  %>
+</h1>
+
+<% @balance.negative? ? classes = 'bg-red-600' : classes = 'bg-emerald-600' %>
+
+<section>
+  <div class="shadow-lg p-2 rounded-lg w-full md:w-3/5 mx-auto">
+      <h1 class="text-center mb-3 text-xl" ><%= @budget.title %> Budget Items</h1>
+      <table class="table-auto border-collapse border border-slate-400 w-full mx-2 lg:mx-auto">
+        <thead>
+          <tr>
+            <th class="border border-slate-300">Title</th>
+            <th class="border border-slate-300">Amount ($)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @items.each do |item| %>
+          <tr class="text-center">
+            <td class="border border-slate-300"><%= item.title %></td>
+            <td class="border border-slate-300"><%= item.amount %></td>
+          </tr>
+          <% end %>
+          
+          <tr class="text-center">
+            <td></td>
+            <td>
+              <h1 class="font-bold text-white mt-1 px-2 py-1 <%=classes%> rounded">
+                Total: 
+                <%= @balance %>
+              </h1>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</section>
