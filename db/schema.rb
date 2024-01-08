@@ -10,13 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_07_161055) do
-  create_table "currencies", force: :cascade do |t|
-    t.integer "amount"
-    t.integer "users_id", null: false
+ActiveRecord::Schema[7.0].define(version: 2024_01_08_081701) do
+  create_table "budgets", force: :cascade do |t|
+    t.string "title"
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["users_id"], name: "index_currencies_on_users_id"
+    t.index ["user_id"], name: "index_budgets_on_user_id"
+  end
+
+  create_table "currencies", force: :cascade do |t|
+    t.integer "amount"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_currencies_on_user_id"
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string "title"
+    t.integer "amount"
+    t.integer "budget_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["budget_id"], name: "index_items_on_budget_id"
+  end
+
+  create_table "transfers", force: :cascade do |t|
+    t.integer "amount"
+    t.integer "receiver_id"
+    t.integer "sender_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["receiver_id"], name: "index_transfers_on_receiver_id"
+    t.index ["sender_id"], name: "index_transfers_on_sender_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -27,12 +54,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_07_161055) do
     t.datetime "remember_created_at"
     t.string "first_name", null: false
     t.string "last_name", null: false
-    t.integer "balance"
+    t.integer "balance", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "currencies", "users", column: "users_id"
+  add_foreign_key "budgets", "users"
+  add_foreign_key "currencies", "users"
+  add_foreign_key "items", "budgets"
+  add_foreign_key "transfers", "users", column: "receiver_id"
+  add_foreign_key "transfers", "users", column: "sender_id"
 end

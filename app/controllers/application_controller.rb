@@ -11,4 +11,14 @@ class ApplicationController < ActionController::Base
   def devise_permitted_params
     %i[first_name last_name email password password_confirmation current_password]
   end
+
+  protected
+
+  def after_sign_in_path_for(_resource)
+    dashboard_path
+  end
+
+  def after_sign_up_path_for(_resource)
+    dashboard_path
+  end
 end

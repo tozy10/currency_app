@@ -13,6 +13,10 @@
 
   <body>
     <header>
+      <% if user_signed_in? %>
+        <%= render 'shared/navbar' %>
+      <% end %>
+
       <%= render 'shared/alert', message: alert %>
       <%= render 'shared/alert', message: notice %>
     </header>

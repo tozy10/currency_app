@@ -1,5 +1,5 @@
 <% message.blank? ? css_class = 'hidden' : css_class = 'block' %>
-<div class="notification bg-indigo-100 border border-indigo-400 <%= css_class %> text-indigo-700 px-4 py-3 rounded relative m-5" role="alert">
+<div class="notification bg-indigo-100 border border-indigo-400 <%= css_class %> text-indigo-700 px-4 py-3 rounded relative" role="alert">
   <span class="block sm:inline"><%= message %></span>
   <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
     <svg class="hover:cursor-pointer fill-current h-6 w-6 text-indigo-500 jb-notification-dismiss" type="button" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" title="Close">
