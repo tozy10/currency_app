@@ -18,7 +18,7 @@ class BudgetsController < ApplicationController
     @budget = Budget.find(params[:id])
     @item = Item.new
     @items = @budget.items
-    @balance = current_user.balance - @budget.items.pluck(:amount).sum
+   @items.any? ? @balance = current_user.balance - @items.pluck(:amount).sum : @balance = 0
   end
 
   def update
@@ -33,7 +33,7 @@ class BudgetsController < ApplicationController
   def show
     @budget = current_user.budgets.find(params[:id])
     @items = @budget.items
-    @balance = current_user.balance - @budget.items.pluck(:amount).sum
+    @balance = @items.pluck(:amount).sum
   end
 
   def index

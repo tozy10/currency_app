@@ -89,7 +89,7 @@
             <td class="border border-slate-300"><%= item.title %></td>
             <td class="border border-slate-300"><%= item.amount %></td>
             <td class="border border-slate-300 text-center py-1 px-0">
-              <%= button_to 'Delete', budget_item_path(@budget, item), class: 'px-2 py-1 font-bold text-white bg-red-500 rounded hover:bg-red-600' %>
+              <%= button_to 'Delete' ,budget_item_path(@budget, item), class: 'px-2 py-1 font-bold text-white bg-red-500 rounded hover:bg-red-600', method: :delete %>
             </td>
           </tr>
           <% end %>

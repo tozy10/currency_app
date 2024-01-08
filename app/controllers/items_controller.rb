@@ -9,6 +9,15 @@ class ItemsController < ApplicationController
     end
   end
 
+  def destroy
+    items= budget.items.find(params[:id])
+    if items.destroy
+      redirect_to request.referer, flash: { notice: "Item deleted successfully" }
+    else
+      redirect_to request.referer, flash: { notice: "There was an error deleting an item" }   
+    end
+  end
+
   private
   
   def item_params
