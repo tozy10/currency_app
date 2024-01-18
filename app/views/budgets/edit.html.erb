@@ -12,7 +12,7 @@
     '
   %>
 </h1>
-<% @balance.negative? ? classes = 'bg-red-600' : classes = 'bg-emerald-600' %>
+<% @account_balance.negative? ? classes = 'bg-red-600' : classes = 'bg-emerald-600' %>
 <section class="w-4/5 mx-auto md:p-2">
   <h1 class="text-4xl font-bold text-center text-blue-500 mb-2">
         Plan <span class="text-teal-500">Budget</span></h1>
@@ -39,7 +39,7 @@
           </div>
         <% end %>
       </div>
-      <% if @balance > 0 %>
+      <% if @account_balance > 0 %>
         <div class="bg-white p-1 rounded-lg">
           <h1 class="text-2xl font-bold text-center text-blue-500 mb-3">
           Add <span class="text-teal-500">Item</span></h1>
@@ -52,7 +52,7 @@
                 <%= f.text_field :title, required: true,
                   class: "rounded border border-gray-200 text-sm w-full font-normal leading-[18px]
                     text-black tracking-[0px] appearance-none block h- m-0 p-[11px] 
-                    focus:ring-2 ring-offset-2  ring-gray-900 outline-0", max: current_user.balance
+                    focus:ring-2 ring-offset-2  ring-gray-900 outline-0"
                 %>
               </div>
               <div class="base-1/2 w-full">
@@ -62,7 +62,7 @@
                 <%= f.number_field :amount, required: true,
                   class: "rounded border border-gray-200 text-sm w-full font-normal leading-[18px]
                     text-black tracking-[0px] appearance-none block h- m-0 p-[11px] 
-                    focus:ring-2 ring-offset-2  ring-gray-900 outline-0", max: @balance
+                    focus:ring-2 ring-offset-2  ring-gray-900 outline-0", max: @balance_left
                 %>
               </div>
             </div>
