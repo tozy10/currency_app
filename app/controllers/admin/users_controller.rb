@@ -7,7 +7,9 @@ module Admin
       resource = find_resource(params[:id])
       deposit = resource_params[:balance].to_i - resource.balance
     
-      return resource.update(resource_params) unless deposit.positive?
+      unless deposit.positive?
+        return redirect_to request.referer, notice: 'Updated' if resource.update(resource_params) 
+      end
       
       begin
         poll_url = process_payment(deposit, '0771111111')
