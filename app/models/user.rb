@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :ecocash_number, presence: true
 
   has_many :currencies, dependent: :destroy
   has_many :budgets, dependent: :destroy
