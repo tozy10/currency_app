@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   has_many :currencies, dependent: :destroy
   has_many :budgets, dependent: :destroy
+  has_many :poll_urls, dependent: :destroy
 
   def full_name
     "#{first_name} #{last_name}"

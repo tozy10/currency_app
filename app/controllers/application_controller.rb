@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   end
 
   def devise_permitted_params
-    %i[first_name last_name email password password_confirmation current_password]
+    %i[first_name last_name email ecocash_number password password_confirmation current_password]
   end
 
   protected

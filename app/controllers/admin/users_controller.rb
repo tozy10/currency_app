@@ -3,44 +3,42 @@ module Admin
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
     #
-    # def update
-    #   super
-    #   send_foo_updated_email(requested_resource)
-    # end
-
-    # Override this method to specify custom lookup behavior.
-    # This will be used to set the resource for the `show`, `edit`, and `update`
-    # actions.
-    #
-    # def find_resource(param)
-    #   Foo.find_by!(slug: param)
-    # end
-
-    # The result of this lookup will be available as `requested_resource`
-
-    # Override this if you have certain roles that require a subset
-    # this will be used to set the records shown on the `index` action.
-    #
-    # def scoped_resource
-    #   if current_user.super_admin?
-    #     resource_class
-    #   else
-    #     resource_class.with_less_stuff
-    #   end
-    # end
-
-    # Override `resource_params` if you want to transform the submitted
-    # data before it's persisted. For example, the following would turn all
-    # empty values into nil values. It uses other APIs such as `resource_class`
-    # and `dashboard`:
-    #
-    # def resource_params
-    #   params.require(resource_class.model_name.param_key).
-    #     permit(dashboard.permitted_attributes(action_name)).
-    #     transform_values { |value| value == "" ? nil : value }
-    # end
-
-    # See https://administrate-demo.herokuapp.com/customizing_controller_actions
-    # for more information
+    def update
+      resource = find_resource(params[:id])
+      deposit = resource_params[:balance].to_i - resource.balance
+    
+      return unless deposit.positive?
+      
+      begin
+        poll_url = process_payment(deposit, '0771111111')
+        sleep(16)
+        resource.poll_urls.create!(poll_url: poll_url)
+        ActiveRecord::Base.transaction do
+          if PaynowStatus.check_transaction_status(poll_url)['status'] == 'Paid'
+            resource.update!(balance: resource_params[:balance])
+            redirect_to request.referer, notice: "Transfer status: Paid. USD$#{deposit} has been deposited to the account."
+          else
+            redirect_to request.referer, notice: "Transfer status: #{PaynowStatus.check_transaction_status(poll_url)['status']}."
+          end
+        end
+      rescue ActiveRecord::RecordInvalid => e
+        puts 
+        redirect_to request.referer, flash: {notice: "Error: #{e}"}
+      end
+    end
+    
+    private
+    
+    def process_payment(amount, ecocash_number)
+      paynow = Paynow.new(ENV['PAYNOW_INTEGRATION_ID'], ENV['PAYNOW_INTEGRATION_KEY'], dashboard_url, dashboard_url)
+      payment = paynow.create_payment('App transfer', 'ernesttozy@gmail.com')
+      payment.add("Deposit", amount)
+      response = paynow.send_mobile(payment, ecocash_number, 'ecocash')
+      
+      return unless response.success
+    
+      poll_url = response.poll_url
+      PaynowStatus.check_transaction_status(poll_url)['pollurl']
+    end
   end
 end

@@ -79,3 +79,7 @@ end
 gem "devise", "~> 4.9"
 
 gem "administrate", "~> 0.19.0"
+
+gem "paynow_sdk", "~> 1.1"
+
+gem "dotenv-rails", "~> 3.1"

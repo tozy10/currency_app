@@ -12,6 +12,7 @@ class UserDashboard < Administrate::BaseDashboard
     balance: Field::Number,
     email: Field::String,
     first_name: Field::String,
+    ecocash_number: Field::String,
     last_name: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -26,6 +27,7 @@ class UserDashboard < Administrate::BaseDashboard
     first_name
     last_name
     email
+    ecocash_number
     balance
   ].freeze
 
@@ -36,6 +38,7 @@ class UserDashboard < Administrate::BaseDashboard
     balance
     email
     first_name
+    ecocash_number
     last_name
     created_at
     updated_at
@@ -47,6 +50,7 @@ class UserDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = %i[
     first_name
     last_name
+    ecocash_number
     email
     balance
   ].freeze

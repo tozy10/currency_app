@@ -1,14 +1,13 @@
 <nav class="bg-gradient-to-r from-white to-gray-200 backdrop-blur-lg p-2 mb-6">
-  <div class="max-w-full mx-auto grid grid-cols-12">
-    <div class="md:col-span-6 col-span-12 p-1">
+  <div class="mx-auto grid md:grid-cols-3 gap-4">
+    <div class="p-1 col-span-1">
       <%= link_to dashboard_path do %>
         <h1 
           class="
             uppercase text-center ml-5
             lg:text-start md:text-start 
             font-bold text-orange-500 text-3xl my-auto
-            transition ease-out-in 
-            hover:-translate-y-0 hover:scale-110
+            transition ease-out-in  hover:scale-95
             duration-300
           "
         >
@@ -16,20 +15,27 @@
         </h1>
       <% end %>
     </div>
-    <div class="col-span-12 md:col-span-6 justify-center md:justify-end p-1 px-5">
-      <div class="col-span-3 py-1 font-bold text-center">
-        Your account balance is: 
-        <button 
-          class="m-0
-            bg-orange-500
-            text-white px-2 py-1 my-auto 
-            rounded transition ease-in-out 
-            hover:-translate-y-0 hover:scale-95
-            duration-300
-          "
-        >
-          <%= number_to_currency(current_user.balance, precision: 2) %>
-        </button>
+    <div class="col-span-2 py-2 grid grid-cols-3 md:grid-cols-5">
+      <div class="hidden md:block md:col-span-1 lg:col-span-2"></div>
+      <div class="col-span-2 md:col-span-3 lg:col-span-2 pt-1.5">
+        <span class="font-medium w-fit"> 
+          Account balance: 
+          <span 
+            class="font-medium m-0 bg-orange-500 text-white p-1 my-auto 
+              rounded transition ease-in-out hover:-translate-y-0 hover:scale-95
+              duration-300
+            "
+          >
+            <%= number_to_currency(current_user.balance, precision: 2) %>
+          </span>
+        </span>
+      </div>
+      <div class="col-span-1 flex justify-center items-center font-medium md:col-span-1">
+        <%= button_to 'Sign out', destroy_user_session_path, 
+          class: 'm-0 bg-red-500 text-white p-1 my-auto
+            rounded transition ease-in-out hover:-translate-y-0
+            hover:scale-95 duration-300 relative bottom-', method: :delete
+        %>
       </div>
     </div>
   </div>

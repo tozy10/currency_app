@@ -33,17 +33,32 @@
               %>
             </div>
           </div>
-          <div class="block relative"> 
-            <%= f.label :email, 
-              class: "block text-gray-600 cursor-text text-sm leading-[140%] font-normal mb-2" 
-            %>
-            <%= f.email_field :email,
-              autofocus: true, 
-              autocomplete: "email",
-              class: "rounded border border-gray-200 text-sm w-full font-normal leading-[18px]
-                text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] 
-                focus:ring-2 ring-offset-2  ring-gray-900 outline-0"
-            %>
+          
+          <div class="flex flex-row gap-3"> 
+            <div class="base-1/2"> 
+              <%= f.label :email, 
+                class: "block text-gray-600 cursor-text text-sm leading-[140%] font-normal mb-2" 
+              %>
+              <%= f.email_field :email,
+                autofocus: true, 
+                autocomplete: "email",
+                class: "rounded border border-gray-200 text-sm w-full font-normal leading-[18px]
+                  text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] 
+                  focus:ring-2 ring-offset-2  ring-gray-900 outline-0"
+              %>
+            </div>
+            <div class="base-1/2"> 
+              <%= f.label :ecocash_number, 
+                class: "block text-gray-600 cursor-text text-sm leading-[140%] font-normal mb-2" 
+              %>
+              <%= f.phone_field :ecocash_number,
+                autofocus: true, 
+                autocomplete: "email",
+                class: "rounded border border-gray-200 text-sm w-full font-normal leading-[18px]
+                  text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] 
+                  focus:ring-2 ring-offset-2  ring-gray-900 outline-0"
+              %>
+            </div>
           </div>
           <div class="flex flex-row gap-3"> 
             <div class="base-1/2">
