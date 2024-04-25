@@ -15,7 +15,7 @@ module Admin
       if topup.amount > 1
         begin
           poll_url = process_payment(topup.amount, '0771111111')
-          sleep(10)
+          sleep(30)
           
           topup.poll_url = poll_url
           ActiveRecord::Base.transaction do
