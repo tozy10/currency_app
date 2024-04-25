@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_21_175907) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_25_174934) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -39,12 +39,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_21_175907) do
     t.index ["budget_id"], name: "index_items_on_budget_id"
   end
 
-  create_table "poll_urls", force: :cascade do |t|
+  create_table "topups", force: :cascade do |t|
+    t.integer "amount"
     t.bigint "user_id", null: false
-    t.string "poll_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_poll_urls_on_user_id"
+    t.string "poll_url"
+    t.index ["user_id"], name: "index_topups_on_user_id"
   end
 
   create_table "transfers", force: :cascade do |t|
@@ -76,7 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_21_175907) do
   add_foreign_key "budgets", "users"
   add_foreign_key "currencies", "users"
   add_foreign_key "items", "budgets"
-  add_foreign_key "poll_urls", "users"
+  add_foreign_key "topups", "users"
   add_foreign_key "transfers", "users", column: "receiver_id"
   add_foreign_key "transfers", "users", column: "sender_id"
 end

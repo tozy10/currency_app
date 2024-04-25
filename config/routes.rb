@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   namespace :admin do
     resources :users
-    #resources :currencies
+    resources :topups, except: %i[edit update destroy]
 
     root to: "users#index"
   end

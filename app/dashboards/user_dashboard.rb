@@ -13,7 +13,7 @@ class UserDashboard < Administrate::BaseDashboard
     email: Field::String,
     first_name: Field::String,
     ecocash_number: Field::String,
-    poll_urls: Field::HasMany,
+    topups: Field::HasMany,
     last_name: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -43,7 +43,7 @@ class UserDashboard < Administrate::BaseDashboard
     last_name
     created_at
     updated_at
-    poll_urls
+    topups
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -54,7 +54,6 @@ class UserDashboard < Administrate::BaseDashboard
     last_name
     ecocash_number
     email
-    balance
   ].freeze
 
   # COLLECTION_FILTERS
@@ -73,6 +72,6 @@ class UserDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(user)
-    user.first_name + " " + user.last_name
+    user.ecocash_number
   end
 end
